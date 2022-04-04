@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for i in P-III-6/data/*.in;
+do
+echo "$i"
+./a.out < $i;
+cat "${i%.in}.out"
+done
