@@ -38,16 +38,17 @@ void build() {
     for(int i = n-1; i > 0; --i) {
         LE a = u[2*i];
         LE b = u[2*i + 1];
-        u[i] = {a.s + b.s, max(a.m, b.m), 0};
+        u[i] = {a.s + b.s, max(a.m, b.m), 0, false};
     } 
 }
 
 
 
 E traverse(int f, int t, int a = 0, bool nlf = false, int lu = 0, int ru = n, int ui = 1) {
-    int len = ru - lu;
-    if(ru <= f || t <= lu || t < f) return {0, 0};
-    if(f <= lu && ru <= t) {
+    int rru = min(l, ru);
+    int len = rru - lu;
+    if(rru <= f || t <= lu || t < f) return {0, 0};
+    if(f <= lu && rru <= t) {
         if(nlf) {
             u[ui].nlf = true;
             u[ui].la = 0;
@@ -75,6 +76,7 @@ E traverse(int f, int t, int a = 0, bool nlf = false, int lu = 0, int ru = n, in
         u[ui].nlf = false;
     }
 
+    int off = max(0, ru - l);
 
     u[ui*2  ].m += u[ui].la;
     u[ui*2  ].la += u[ui].la;
@@ -82,7 +84,7 @@ E traverse(int f, int t, int a = 0, bool nlf = false, int lu = 0, int ru = n, in
 
     u[ui*2+1].m += u[ui].la;
     u[ui*2+1].la += u[ui].la;
-    u[ui*2+1].s += u[ui].la * len/2;
+    u[ui*2+1].s += u[ui].la * (len/2 - off);
 
     u[ui].la = 0;
 
@@ -130,7 +132,7 @@ int main() {
     // }
 
     for(int i = 0; i < n; ++i) {
-        u[n+i] = {0,0,0};
+        u[n+i] = {0, 0, 0, false};
     }
 
     build();
