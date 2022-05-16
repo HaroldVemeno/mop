@@ -19,17 +19,6 @@ struct Treap {
     Treap(int v): v{v}, p{rand()} {}
     Treap(int v, int p): v{v}, p{p} {}
 
-#define BLK "\e[0;30m"
-#define RED "\e[0;31m"
-#define GRN "\e[0;32m"
-#define YEL "\e[0;33m"
-#define BLU "\e[0;34m"
-#define MAG "\e[0;35m"
-#define CYN "\e[0;36m"
-#define WHT "\e[0;37m"
-
-#define RST "\e[0m"
-
     void print(ostream& o, string bef = string{}, int pos = 0) const {
         if(l == nullptr) {
             o << bef;
@@ -63,6 +52,8 @@ struct Treap {
         return o;
     }
 };
+
+// 500000003
 
 Treap* merge(Treap* l, Treap* r) {
     if(l == nullptr) return r;
